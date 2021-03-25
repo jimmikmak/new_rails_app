@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TodosController < ApplicationController
+class Api::TodosController < ApplicationController
   def index
     render json: Todo.all
   end
