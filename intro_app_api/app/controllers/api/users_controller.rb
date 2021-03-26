@@ -5,18 +5,14 @@ class Api::UsersController < ApplicationController
     render json: User.all
   end
 
-  #   def create
-  #     # puts params[:title]
-  #     # puts params[:completed]
-  #     # puts params[:description]
-  #     todo = Todo.create(title: params[:title], completed: params[:completed], description: params[:description])
-  #     todo_valid = todo.valid?
-  #     if todo_valid
-  #       render json: { message: 'Successfully created todo list!' }, status: 200
-  #     else
-  #       render json: { message: 'Unable to create todo list' }, status: 400
-  #     end
-  #   end
+  def create
+    user = User.create(user_params)
+    if user.valid?
+      render json: user, status: 201
+    else
+      render json: { message: 'Unable to create user!' }, status: 500
+    end
+  end
 
   # Todo.create(title: "James", completed: false, description:)
 
@@ -30,6 +26,10 @@ class Api::UsersController < ApplicationController
   #     todo.update(completed: params[:completed], description: params[:description], title: params[:title])
   #     render json: { type: 'Successfully updated entry!' }
   #   end
+
+  def update
+    render json: User.find(params[:id]).update(user_params)
+  end
 
   def destroy
     User.destroy(params[:id])
