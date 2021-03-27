@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::TodosController < ApplicationController
+  before_action :user_exists
+
   def index
     render json: Todo.all
   end
