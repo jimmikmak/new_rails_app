@@ -4,11 +4,20 @@ import { Link } from "react-router-dom";
 export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
-    fetch("/todos")
+    fetch("/api/todos", {
+      headers: {
+        token: window.localStorage.getItem("token"),
+      },
+    })
       .then((response) => response.json())
-      .then((data) => setTodos(data));
+      .then((data) => {
+        console.log("data:", data);
+        if (data.length) {
+          setTodos(data);
+        }
+      })
+      .catch((error) => console.log("CATCH error:", error));
   }, []);
-
   return (
     <div>
       <h1>Todos</h1>

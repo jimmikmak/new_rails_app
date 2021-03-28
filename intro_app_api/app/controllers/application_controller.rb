@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  before_action :user_exists
+
   def encode_token(user_id)
     # DON'T hardcode key argument ie 'super-secret*&^%' as this will be in source control or git.
     # Store in a variable (system variable) outside the code.
